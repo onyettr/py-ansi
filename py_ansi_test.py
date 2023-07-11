@@ -20,5 +20,8 @@ def main():
         for i in range(1,80):
             isp_print_at_xy("green", i, i,rows)
 
+    # put things back 
+    isp_print_terminal_reset()
+
 if __name__ == "__main__":
     main()
