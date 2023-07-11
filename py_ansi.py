@@ -8,7 +8,7 @@
 """
 # pylint: disable=unused-argument, invalid-name
 #from isp_protocol import ISP_PACKET_DATA_FIELD
-ISP_PACKET_DATAT_FIELD=1
+ISP_PACKET_DATA_FIELD=1
 
 # Colour table for ANSI terminal printing
 ansi_fg_colour = {
@@ -24,15 +24,14 @@ ansi_fg_colour = {
 }
 
 def isp_print_at_xy(fg,message_string, column, row):
+    """ isp_print_at_xy              """
     print("\033[%d;%dH%s%s" %(
         row,column,
         ansi_fg_colour[fg],
         message_string))
 
 def isp_print_color(fg, message_string):
-    """
-        print a message
-    """
+    """ print a message """
     print(ansi_fg_colour[fg],end='')
     print(message_string, end='')
     print(ansi_fg_colour["reset"],end='')
@@ -69,8 +68,7 @@ def isp_print_terminal_reset():
     print("\033[0m")
 
 def isp_print_clear_screen():
-    """
-    """
+    """ isp_print_clear_screen """
     print("\033[2J")
 
 def isp_print_cursor_disable():

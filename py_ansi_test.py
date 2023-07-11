@@ -1,5 +1,5 @@
 
-from isp_print import *
+from py_ansi import *
 
 def main():
 
