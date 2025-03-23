@@ -12,19 +12,49 @@ ISP_PACKET_DATA_FIELD=1
 
 # Colour table for ANSI terminal printing
 ansi_fg_colour = {
-            "white"  : "\033[97m",
-            "cyan"   : "\033[96m",
-            "header" : "\033[95m]",
-            "blue"   : "\033[94m",
-            "yellow" : "\033[93m",
-            "green"  : "\033[92m",
-            "red"    : "\033[91m",
-            "black"  : "\033[90m",
-            "reset"  : "\033[0m"
+    "white"  : "\033[97m",
+    "cyan"   : "\033[96m",
+    "header" : "\033[95m]",
+    "blue"   : "\033[94m",
+    "yellow" : "\033[93m",
+    "green"  : "\033[92m",
+    "red"    : "\033[91m",
+    "black"  : "\033[90m",
+    "reset"  : "\033[0m",
+    # Added additional named colors
+    "magenta": "\033[95m",
+    "gray"   : "\033[90m",
+    "bright_red": "\033[91m",
+    "bright_green": "\033[92m",
+    "bright_yellow": "\033[93m",
+    "bright_blue": "\033[94m",
+    "bright_magenta": "\033[95m",
+    "bright_cyan": "\033[96m",
+    "bright_white": "\033[97m",
+    # Standard (non-bright) colors
+    "std_black": "\033[30m",
+    "std_red": "\033[31m",
+    "std_green": "\033[32m",
+    "std_yellow": "\033[33m",
+    "std_blue": "\033[34m",
+    "std_magenta": "\033[35m",
+    "std_cyan": "\033[36m",
+    "std_white": "\033[37m",
+    # Text styles
+    "bold": "\033[1m",
+    "underline": "\033[4m"
 }
 
 def isp_print_at_xy(fg,message_string, column, row):
-    """ isp_print_at_xy              """
+    """ 
+    Print message at specific coordinates with color
+
+    Args:
+        fg: Color name from ansi_fg_colour dictionary
+        message_string: Text to print
+        column: X coordinate (column)
+        row: Y coordinate (row)
+    """
     print("\033[%d;%dH%s%s" %(
         row,column,
         ansi_fg_colour[fg],
