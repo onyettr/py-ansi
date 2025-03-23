@@ -1,14 +1,35 @@
 #!/usr/bin/python3
 """
-    ISP printing
-     - Created to avoid circular references as used in more than place
-
-    In System Programming (ISP) protocol implementation
+  ANSI Terminal priniting
    __author__ onyettr
 """
 # pylint: disable=unused-argument, invalid-name
 #from isp_protocol import ISP_PACKET_DATA_FIELD
-ISP_PACKET_DATA_FIELD=1
+
+# Basic ANSI color codes
+FG_BLACK = 30
+FG_RED = 31
+FG_GREEN = 32
+FG_YELLOW = 33
+FG_BLUE = 34
+FG_MAGENTA = 35
+FG_CYAN = 36
+FG_WHITE = 37
+
+# Bright ANSI color codes (90-97)
+FG_BRIGHT_BLACK = 90  # Gray
+FG_BRIGHT_RED = 91
+FG_BRIGHT_GREEN = 92
+FG_BRIGHT_YELLOW = 93
+FG_BRIGHT_BLUE = 94
+FG_BRIGHT_MAGENTA = 95
+FG_BRIGHT_CYAN = 96
+FG_BRIGHT_WHITE = 97
+
+# Text styles
+STYLE_NORMAL = 0
+STYLE_BOLD = 1
+STYLE_UNDERLINE = 4
 
 # Colour table for ANSI terminal printing
 ansi_fg_colour = {
@@ -45,7 +66,7 @@ ansi_fg_colour = {
     "underline": "\033[4m"
 }
 
-def isp_print_at_xy(fg,message_string, column, row):
+def print_at_xy(fg,message_string, column, row):
     """ 
     Print message at specific coordinates with color
 
@@ -60,26 +81,13 @@ def isp_print_at_xy(fg,message_string, column, row):
         ansi_fg_colour[fg],
         message_string))
 
-def isp_print_color(fg, message_string):
+def print_color(fg, message_string):
     """ print a message """
     print(ansi_fg_colour[fg],end='')
     print(message_string, end='')
     print(ansi_fg_colour["reset"],end='')
 
-def isp_print_response(fg, message):
-    """
-        print a data response packet
-        This is an unknown response format so we just print each elementc
-    """
-    print_message = message[ISP_PACKET_DATA_FIELD:len(message)-1]
-
-    print(ansi_fg_colour[fg],end='')
-    for x in print_message:
-        print(hex(x), end='')
-        print(' ', end='')
-    print(ansi_fg_colour["reset"])
-
-def isp_print_message(fg, message):
+def print_message(fg, message):
     """
         print a PRINT_DATA message
         This is a NULL terminated string
@@ -90,27 +98,38 @@ def isp_print_message(fg, message):
     print(ansi_fg_colour[fg], print_message.decode('utf-8'), \
           ansi_fg_colour["reset"])
 
-def isp_print_terminal_reset():
+def print_color_code(color_code, message_string, style=STYLE_NORMAL):
     """
-        isp_print_terminal_reset
+    Print a message with specified ANSI color code
+    
+    Args:
+        color_code: ANSI color code (30-37 or 90-97)
+        message_string: Text to print
+        style: Text style (default: STYLE_NORMAL)
+    """
+    print(f"\033[{style};{color_code}m{message_string}\033[0m", end='')
+
+def print_terminal_reset():
+    """
+        print_terminal_reset
             reset the ANSI graphics Terminal
     """
     print("\033[0m")
 
-def isp_print_clear_screen():
+def print_clear_screen():
     """ isp_print_clear_screen """
     print("\033[2J")
 
-def isp_print_cursor_disable():
+def print_cursor_disable():
     """
-        isp_print_cursor_disable
+        print_cursor_disable
             Stop Cursor Blinking
     """
     print("\033[?25l") # Cursor off
 
-def isp_print_cursor_enable():
+def print_cursor_enable():
     """
-        isp_print_cursor_enable
+        print_cursor_enable
             reset the Cursor to Blinking
     """
     print("\033[?25h")  # Flicker enables Cusror hide DECTCEM, this reenables
