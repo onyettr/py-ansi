@@ -76,10 +76,7 @@ def print_at_xy(fg,message_string, column, row):
         column: X coordinate (column)
         row: Y coordinate (row)
     """
-    print("\033[%d;%dH%s%s" %(
-        row,column,
-        ansi_fg_colour[fg],
-        message_string))
+    print(f"\033[{row};{column}H{ansi_fg_colour[fg]}{message_string}")
 
 def print_color(fg, message_string):
     """ print a message """
